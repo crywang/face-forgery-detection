@@ -314,7 +314,7 @@ class TransferModel(nn.Module):
                     model.fc = model.last_linear
                     del model.last_linear
                     state_dict = torch.load(
-                        'pretrained/xception-b5690688.pth')
+                        './xception-b5690688.pth')
                     for name, weights in state_dict.items():
                         if 'pointwise' in name:
                             state_dict[name] = weights.unsqueeze(
