@@ -30,14 +30,16 @@ Please contact - LUO Yuchen - 592mcavoy@sjtu.edu.cn
 
 ## Citation
 
-> @misc{luo2021generalizing,
->       title={Generalizing Face Forgery Detection with High-frequency Features}, 
->       author={Yuchen Luo and Yong Zhang and Junchi Yan and Wei Liu},
->       year={2021},
->       eprint={2103.12376},
->       archivePrefix={arXiv},
->       primaryClass={cs.CV}
-> }
+```
+@misc{luo2021generalizing,
+      title={Generalizing Face Forgery Detection with High-frequency Features}, 
+      author={Yuchen Luo and Yong Zhang and Junchi Yan and Wei Liu},
+      year={2021},
+      eprint={2103.12376},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+```
 
 ## Notice
 
