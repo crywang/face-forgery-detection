@@ -43,9 +43,9 @@ Please contact - LUO Yuchen - 592mcavoy@sjtu.edu.cn
 
 ## Notice
 
-Due to some confidential issues, we will not release the training and testing codes. One can find some relevant specifications in the paper.
+- The training and testing are conducted following the specifications in FaceForensics++ [paper](https://arxiv.org/abs/1901.08971).
 
-The training datasets can be downloaded and created following the official instructions of [[FaceForensics++](https://github.com/ondyari/FaceForensics)].
+- The training datasets can be downloaded and created following the official instructions of [FaceForensics++](https://github.com/ondyari/FaceForensics).
 
 
 
