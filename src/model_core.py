@@ -7,7 +7,6 @@ from components.srm_conv import SRMConv2d_simple, SRMConv2d_Separate
 from networks.xception import TransferModel
 
 
-
 class SRMPixelAttention(nn.Module):
     def __init__(self, in_channels):
         super(SRMPixelAttention, self).__init__()
@@ -61,7 +60,7 @@ class FeatureFusionModule(nn.Module):
                     nn.init.constant_(ly.bias, 0)
 
 
-class Two_Stream_Net(BaseModel):
+class Two_Stream_Net(nn.Module):
     def __init__(self):
         super().__init__()
         self.xception_rgb = TransferModel(
@@ -142,7 +141,7 @@ class Two_Stream_Net(BaseModel):
         return out, fea, self.att_map
     
 if __name__ == '__main__':
-    model = Two_Stream_Net(skip_fea4=True, skip_fea3=True)
+    model = Two_Stream_Net()
     dummy = torch.rand((1,3,256,256))
     out = model(dummy)
     print(model)

@@ -1,8 +1,12 @@
-
 import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+
+"""
+Channel Attention and Spaitial Attention from    
+Woo, S., Park, J., Lee, J.Y., & Kweon, I. CBAM: Convolutional Block Attention Module. ECCV2018.
+"""
 
 
 class ChannelAttention(nn.Module):
@@ -46,6 +50,11 @@ class SpatialAttention(nn.Module):
         x = torch.cat([avgout, maxout], dim=1)
         x = self.conv(x)
         return self.sigmoid(x)
+
+
+"""
+The following modules are modified based on https://github.com/heykeetae/Self-Attention-GAN
+"""
 
 
 class Self_Attn(nn.Module):
@@ -118,8 +127,8 @@ class CrossModalAttention(nn.Module):
         self.softmax = nn.Softmax(dim=-1)
 
         for m in self.modules():
-           if isinstance(m, nn.Conv2d):
-               nn.init.xavier_normal_(m.weight.data, gain=0.02)
+            if isinstance(m, nn.Conv2d):
+                nn.init.xavier_normal_(m.weight.data, gain=0.02)
 
     def forward(self, x, y):
         """
@@ -154,6 +163,7 @@ class CrossModalAttention(nn.Module):
 
         return out  # , attention
 
+
 class DualCrossModalAttention(nn.Module):
     """ Dual CMA attention Layer"""
 
@@ -170,7 +180,7 @@ class DualCrossModalAttention(nn.Module):
             in_channels=in_dim, out_channels=in_dim//ratio, kernel_size=1)
         self.key_conv_share = nn.Conv2d(
             in_channels=in_dim//ratio, out_channels=in_dim//ratio, kernel_size=1)
-        
+
         self.linear1 = nn.Linear(size*size, size*size)
         self.linear2 = nn.Linear(size*size, size*size)
 
@@ -203,33 +213,33 @@ class DualCrossModalAttention(nn.Module):
 
         def _get_att(a, b):
             proj_key1 = self.key_conv_share(self.key_conv1(a)).view(
-                B, -1, H*W).permute(0, 2, 1)  # B , HW, C
+                B, -1, H*W).permute(0, 2, 1)  # B, HW, C
             proj_key2 = self.key_conv_share(self.key_conv2(b)).view(
                 B, -1, H*W)  # B X C x (*W*H)
             energy = torch.bmm(proj_key1, proj_key2)  # B, HW, HW
- 
-            attention1 = self.softmax(self.linear1(energy))
-            attention2 = self.softmax(self.linear2(energy.permute(0,2,1)))  # BX (N) X (N)
 
+            attention1 = self.softmax(self.linear1(energy))
+            attention2 = self.softmax(self.linear2(
+                energy.permute(0, 2, 1)))  # BX (N) X (N)
 
             return attention1, attention2
-        
-        att_y_on_x, att_x_on_y = _get_att(x, y)       
+
+        att_y_on_x, att_x_on_y = _get_att(x, y)
         proj_value_y_on_x = self.value_conv2(y).view(
-            B, -1, H*W)  # B , C , HW       
+            B, -1, H*W)  # B, C, HW
         out_y_on_x = torch.bmm(proj_value_y_on_x, att_y_on_x.permute(0, 2, 1))
         out_y_on_x = out_y_on_x.view(B, C, H, W)
         out_x = self.gamma1*out_y_on_x + x
-        
+
         proj_value_x_on_y = self.value_conv1(x).view(
-            B, -1, H*W)  # B , C , HW       
+            B, -1, H*W)  # B , C , HW
         out_x_on_y = torch.bmm(proj_value_x_on_y, att_x_on_y.permute(0, 2, 1))
         out_x_on_y = out_x_on_y.view(B, C, H, W)
         out_y = self.gamma2*out_x_on_y + y
 
         if self.ret_att:
             return out_x, out_y, att_y_on_x, att_x_on_y
-        
+
         return out_x, out_y  # , attention
 
 

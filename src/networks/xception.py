@@ -1,5 +1,5 @@
 """
-
+Code from https://github.com/ondyari/FaceForensics
 Author: Andreas Rössler
 """
 import os
@@ -36,6 +36,7 @@ pretrained_settings = {
     }
 }
 
+PRETAINED_WEIGHT_PATH = 'networks/xception-b5690688.pth'
 
 class SeparableConv2d(nn.Module):
     def __init__(self, in_channels, out_channels, kernel_size=1, stride=1, padding=0, dilation=1, bias=False):
@@ -314,7 +315,7 @@ class TransferModel(nn.Module):
                     model.fc = model.last_linear
                     del model.last_linear
                     state_dict = torch.load(
-                        './xception-b5690688.pth')
+                        PRETAINED_WEIGHT_PATH)
                     for name, weights in state_dict.items():
                         if 'pointwise' in name:
                             state_dict[name] = weights.unsqueeze(

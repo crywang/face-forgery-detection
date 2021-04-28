@@ -1,16 +1,8 @@
-# --------------------------------------------------------
-# Two Stream Faster R-CNN
-# Licensed under The MIT License [see LICENSE for details]
-# Written by Hangyan Jiang
-# --------------------------------------------------------
 
-# Testing part
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
-
-
     
 
 class SRMConv2d_simple(nn.Module):
@@ -44,7 +36,7 @@ class SRMConv2d_simple(nn.Module):
                    [-2, 8, -12, 8, -2],
                    [2, -6, 8, -6, 2],
                    [-1, 2, -2, 2, -1]]
-        # # filter3：hor 2rd
+        # filter3：hor 2rd
         filter3 = [[0, 0, 0, 0, 0],
                   [0, 0, 0, 0, 0],
                   [0, 1, -2, 1, 0],
