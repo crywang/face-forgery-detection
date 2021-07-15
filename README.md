@@ -1,6 +1,6 @@
 # face-forgery-detection
 
-This is the official code for the core two-stream model from **Generalizing Face Forgery Detection with High-frequency Features (CVPR 2021)**. 
+This is the author's personnal implementaion of the core two-stream model from **Generalizing Face Forgery Detection with High-frequency Features (CVPR 2021)**. 
 
 For more details, please refer to the original [[paper](https://arxiv.org/abs/2103.12376)].
 
