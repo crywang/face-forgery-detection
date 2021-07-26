@@ -45,7 +45,7 @@ Please contact - LUO Yuchen - 592mcavoy@sjtu.edu.cn
 Thank you all for using this repo! I've received several emails regarding to the implementation and reproducing issues. Here I list some tips that might be useful :).
 - Training and testing are conducted following the specifications in FaceForensics++ [paper](https://arxiv.org/abs/1901.08971).
 - The training datasets can be downloaded and created following the official instructions of [FaceForensics++](https://github.com/ondyari/FaceForensics).
-- The cross-dataset performance is largely influenced by the training data scale and training time. I found that the GPU version, the training batchsize, and the distributing setting also has an impact on the performance. Please refer to the detailed specifications in the paper.
+- The cross-dataset performance is largely influenced by the training data scale and training time. I found that the GPU version, the training batchsize, and the distributing setting also have impacts on the performance. Please refer to the detailed specifications in the paper.
 
 
 
